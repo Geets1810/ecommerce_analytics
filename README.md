@@ -45,29 +45,29 @@ Local Analytical Engine
 DuckDB used as a fast, modern analytical database
 Ideal for reproducible local development and prototyping
 
-# Natural Language Querying
+## Natural Language Querying
 LLM translates plain-English questions into schema-aware SQL
 Guardrails restrict queries to approved marts only
-# Excel-First Output
+## Excel-First Output
 Reports generated as .xlsx files
 Matches real-world stakeholder workflows
 
-# Orchestration
+## Orchestration
 Airflow schedules dbt refreshes
 Separates data freshness from user requests
 
-# Example Workflow
+## Example Workflow
 Stakeholder asks:
 “Show daily revenue by product category for last month”
 
-# System flow:
+## System flow:
 Request submitted via Streamlit UI
 LLM converts request → validated SQL
 SQL runs against dbt-governed DuckDB marts
 Results exported to Excel
 Stakeholder downloads report
 
-# Technology Stack
+## Technology Stack
 Layer	Tools
 Data Modeling	dbt
 Analytical DB	DuckDB
@@ -78,38 +78,38 @@ Output	Excel (.xlsx)
 Language	Python, SQL
 Design Decisions & Trade-offs
 
-# DuckDB (Local)
+## DuckDB (Local)
 
 ✅ Fast, modern, reproducible
 ❌ Not designed for multi-user concurrency or large-scale production
 
-# Excel Output
+## Excel Output
 
 ✅ Matches how stakeholders actually consume data
 ❌ Less interactive than dashboards
 
-# LLM as Interface (Not Logic)
+## LLM as Interface (Not Logic)
 
 LLM only generates SQL
 Business logic remains in dbt models
 
-# No Dashboards by Design
+## No Dashboards by Design
 This tool focuses on ad-hoc reporting, not KPI monitoring
 
-# MVP Scope (Intentional)
+## MVP Scope (Intentional)
 This project intentionally limits scope to:
 One subject area
 Governed read-only queries
 Batch-refreshed data
 Single-user execution
 
-# Future extensions (out of scope here):
+## Future extensions (out of scope here):
 Data reconciliation engine
 Query auditing & usage analytics
 Role-based access control
 Multi-warehouse support
 
-# Why This Project
+## Why This Project
 
 This project reflects real problems faced by analytics teams, not theoretical exercises. It demonstrates:
 Analytics engineering fundamentals (dbt, metrics, governance)
