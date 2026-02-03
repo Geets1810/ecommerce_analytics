@@ -7,4 +7,3 @@ select
     order_delivered_customer_date,
     order_estimated_delivery_date
 from orders_raw
-where order_status != 'canceled'

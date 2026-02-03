@@ -2,11 +2,13 @@ version: 2
 
 sources:
   - name: raw
-    description: "Raw data loaded from CSV seeds"
+    description: "Brazilian e-commerce raw data"
     tables:
       - name: customers_raw
-        description: "Raw customer data"
       - name: orders_raw
-        description: "Raw order data"
+      - name: order_items_raw
       - name: products_raw
-        description: "Raw product data"
+      - name: order_payments_raw
+      - name: sellers_raw
+      - name: order_reviews_raw
+      - name: product_categories_raw
