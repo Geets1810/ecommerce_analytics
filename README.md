@@ -38,10 +38,10 @@ flowchart TB
   B --> C
   X --> OUT[Stakeholder Output\nExcel (.xlsx)]
 # Key Features
-# Governed Data Models
+## Governed Data Models
 dbt models define canonical business logic and metrics
 Prevents querying raw, inconsistent tables
-# Local Analytical Engine
+Local Analytical Engine
 DuckDB used as a fast, modern analytical database
 Ideal for reproducible local development and prototyping
 
