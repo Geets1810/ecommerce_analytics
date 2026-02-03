@@ -1,15 +1,46 @@
-Welcome to your new dbt project!
+# Self-Service Analytics Platform
+*dbt + Airflow + LLM-powered natural language queries*
 
-### Using the starter project
+## What This Demonstrates
+Prototype of self-service analytics platform enabling Finance and business stakeholders and non-tech PMs to generate ad hoc reports via plain-English queries.
 
-Try running the following commands:
-- dbt run
-- dbt test
+## �Architecture
+
+flowchart TB
+  subgraph Ingestion
+    A[Raw Data\n(CSV files)] --> B[dbt Project\nstaging + marts]
+  end
+
+  subgraph Storage
+    C[(DuckDB\nLocal Analytical DB)]
+  end
+
+  subgraph Orchestration
+    O[Airflow\nScheduled dbt runs] --> B
+  end
+
+  subgraph Serving
+    S[Streamlit UI\nAd-hoc Request] --> L[LLM Query Layer\nNL → SQL\nSchema-aware + guarded]
+    L --> C
+    C --> X[Excel Report Generator\nTables + Basic Insights]
+  end
+
+  B --> C
+  X --> OUT[Stakeholder Output\nExcel (.xlsx)]
+
+## Data Model
 
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+## Features
+- Natural language to SQL queries
+- Automated dbt pipeline orchestration
+- Excel/CSV export
+- Brazilian e-commerce dataset (100k orders)
+
+## Tech Stack
+- dbt (data transformation)
+- DuckDB (analytical database)
+- Airflow (orchestration)
+- Streamlit (UI)
+- Claude API (LLM)
+- Python, SQL
