@@ -77,8 +77,36 @@ with st.sidebar:
     """)
 
 # Main interface
+st.subheader("💬 Ask Your Question")
+
+# Sample question buttons
+st.markdown("**Try these examples:**")
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    if st.button("📊 Total Revenue 2017", use_container_width=True):
+        st.session_state.question_input = "What was total revenue in 2017?"
+    if st.button("🏆 Top 10 Customers", use_container_width=True):
+        st.session_state.question_input = "Who are the top 10 customers by lifetime value?"
+
+with col2:
+    if st.button("📍 Orders by State", use_container_width=True):
+        st.session_state.question_input = "Which state has the most orders?"
+    if st.button("📈 Monthly Revenue Trend", use_container_width=True):
+        st.session_state.question_input = "Show me monthly revenue trend for 2017"
+
+with col3:
+    if st.button("💰 Average Order Value", use_container_width=True):
+        st.session_state.question_input = "What is the average order value?"
+    if st.button("⭐ Top Products", use_container_width=True):
+        st.session_state.question_input = "What are the top 10 products by revenue?"
+
+st.markdown("---")
+
+# Text input (now with session state)
 user_question = st.text_input(
-    "Ask a question about the data:",
+    "Or type your own question:",
+    value=st.session_state.get("question_input", ""),
     placeholder="e.g., What was total revenue in January 2024?",
     key="question_input"
 )

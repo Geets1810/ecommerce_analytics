@@ -38,8 +38,10 @@ flowchart TB
   B --> C
   X --> OUT[Stakeholder Output\nExcel (.xlsx)]
 # Key Features
+
 ## Governed Data Models
 dbt models define canonical business logic and metrics
+Uses dbt_utils macros for surrogate key generation, grouping logic, and warehouse-agnostic SQL patterns.
 Prevents querying raw, inconsistent tables
 Local Analytical Engine
 DuckDB used as a fast, modern analytical database
@@ -48,6 +50,7 @@ Ideal for reproducible local development and prototyping
 ## Natural Language Querying
 LLM translates plain-English questions into schema-aware SQL
 Guardrails restrict queries to approved marts only
+
 ## Excel-First Output
 Reports generated as .xlsx files
 Matches real-world stakeholder workflows
@@ -90,7 +93,7 @@ Design Decisions & Trade-offs
 
 ## LLM as Interface (Not Logic)
 
-LLM only generates SQL
+LLM only generates SQL,
 Business logic remains in dbt models
 
 ## No Dashboards by Design
@@ -126,11 +129,10 @@ LLM prompt design and guardrails
 UI and reporting layer
 Documentation and trade-off analysis
 
-How to Run (Local)
-git clone https://github.com/Geets1810/ecommerce_analytics
-cd ecommerce_analytics
-docker compose up -d
-streamlit run app.py
-
-Closing Note
+## How to Run (Local)
+1. git clone https://github.com/Geets1810/ecommerce_analytics
+2. cd ecommerce_analytics
+3. docker compose up -d
+4. streamlit run app.py
+## Closing Note
 This project is designed as a portfolio demonstration, simulating how modern analytics teams can reduce ad-hoc workload while maintaining trust in reported numbers.

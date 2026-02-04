@@ -28,3 +28,24 @@ models:
         tests:
           - unique
           - not_null
+
+
+  - name: mart_orders_core
+    tests:
+      - unique:
+          column_name: order_id
+      - not_null:
+          column_name: order_id
+    columns:
+      - name: total_order_value
+        tests:
+          - not_null
+
+  - name: mart_product_performance
+    tests:
+      - not_null:
+          column_name: product_perf_key
+    columns:
+      - name: revenue
+        tests:
+          - not_null
