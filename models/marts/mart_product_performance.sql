@@ -11,10 +11,10 @@ WITH order_items AS (
         oi.price,
         o.order_purchase_timestamp::date AS order_date,
         c.customer_state
-    FROM {{ ref('order_items_raw') }} oi
-    JOIN {{ ref('orders_raw') }} o
+    FROM {{ ref('stg_order_items') }} oi
+    JOIN {{ ref('stg_orders') }} o
       ON oi.order_id = o.order_id
-    JOIN {{ ref('customers_raw') }} c
+    JOIN {{ ref('stg_customers') }} c
       ON o.customer_id = c.customer_id
 
     {% if is_incremental() %}
@@ -28,7 +28,7 @@ products AS (
     SELECT
         product_id,
         product_category_name
-    FROM {{ ref('products_raw') }}
+    FROM {{ ref('stg_products') }}
 )
 
 SELECT

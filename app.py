@@ -41,7 +41,7 @@ def get_schema_info():
         data_type
     FROM information_schema.columns
     WHERE table_schema = 'main'
-        AND table_name IN ('fct_orders', 'dim_customers', 'dim_products')
+    AND table_name IN ('fct_orders', 'fct_order_items', 'dim_customers', 'dim_products')
     ORDER BY table_name, ordinal_position
     """
     return conn.execute(schema_query).fetchdf()
@@ -116,20 +116,30 @@ if user_question:
         # Build prompt for Claude
         prompt = f"""You are a SQL expert analyzing an e-commerce database.
 
-Available tables and columns:
-{schema_df.to_string()}
+            **CRITICAL: You can ONLY use these tables:**
+            - fct_orders (order-level metrics: one row per order)
+            - fct_order_items (product-level metrics: one row per item sold - USE THIS for product questions)
+            - dim_customers (customer attributes)
+            - dim_products (product attributes)
 
-Important notes:
-- Use DuckDB SQL syntax
-- Table names: fct_orders, dim_customers, dim_products
-- For dates, use date_part() or EXTRACT() functions
-- Order totals are in fct_orders.order_total
-- Customer lifetime value is in dim_customers.lifetime_value
+            **Available columns:**
+            {schema_df.to_string()}
 
-User question: {user_question}
+            **Join rules:**
+            - fct_orders.customer_id → dim_customers.customer_id
+            - fct_order_items.product_id → dim_products.product_id
+            - fct_order_items.customer_state (already has state, no join needed)
 
-Generate ONLY the SQL query to answer this question. No explanation, just SQL.
-"""
+            **Important:**
+            - For PRODUCT questions, use fct_order_items (not fct_orders)
+            - Use DuckDB SQL syntax
+            - Do NOT use tables not listed above
+            - Do NOT join order_id to product_id
+
+            User question: {user_question}
+
+            Generate ONLY the SQL query. No explanation.
+            """
 
         try:
             # Call Claude API
